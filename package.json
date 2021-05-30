@@ -1,6 +1,6 @@
 {
   "name": "scroll-bound-animation",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Change CSS properties of any HTML (SVG too) element and bind it with the scrolled position of the window.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

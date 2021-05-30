@@ -6,6 +6,9 @@
     "outDir": "./lib",
     "strict": true
   },
+  "suppressImplicitAnyIndexErrors": false,
+  "strictNullChecks":false,
+  "strictPropertyInitialization": false,
   "include": ["src"],
   "exclude": ["node_modules", "**/__tests__/*"]
 }

@@ -1,0 +1,20 @@
+[
+  {"test-id": [
+      {
+        "opacity": {
+          "animationHeightOffset": 1,
+          "startAnimationValue": 0,
+          "endAnimationValue": 1,
+          "animationSpeed": 2
+        }
+      },
+      {
+        "font-size": {
+          "animationHeightOffset": 0.5,
+          "startAnimationValue": 2,
+          "endAnimationValue": 6
+        }
+      }
+    ]
+  }
+]
