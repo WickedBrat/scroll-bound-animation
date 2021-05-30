@@ -29,21 +29,21 @@ export default class ScrollBound {
 
     element[queryString].forEach(property => {
       const propertyName = Object.keys(property)[0];
-      var propertyNested = propertyName.split(".");
+      var propertyNested = propertyName.split(" ");
 
       const propertyValueAtScroll = this.utils.getNormalisedPropertyValueAtScolledPosition(
         this.scrollPosition,
-        property[propertyNested[0]].animationHeightOffset,
-        this.utils.getIntegerValueFromString(property[propertyNested[0]].startAnimationValue),
-        this.utils.getIntegerValueFromString(property[propertyNested[0]].endAnimationValue),
-        property[propertyNested[0]].animationSpeed);
+        property[propertyName].animationHeightOffset,
+        this.utils.getIntegerValueFromString(property[propertyName].startAnimationValue),
+        this.utils.getIntegerValueFromString(property[propertyName].endAnimationValue),
+        property[propertyName].animationSpeed);
 
       htmlElement.forEach(targetElement => {
         this.utils.setCSSProperty(
           targetElement,
           propertyNested[0],
           propertyValueAtScroll,
-          this.utils.getIntegerUnitFromString(property[propertyNested[0]].startAnimationValue),
+          this.utils.getIntegerUnitFromString(property[propertyName].startAnimationValue),
           propertyNested[1]);
       })
     }); 
