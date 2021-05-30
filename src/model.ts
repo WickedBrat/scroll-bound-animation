@@ -1,7 +1,7 @@
 export interface propertyAnimation {
   animationHeightOffset: number,
-  startAnimationValue: number,
-  endAnimationValue: number,
+  startAnimationValue: string,
+  endAnimationValue: string,
   animationSpeed?: number
 }
 
