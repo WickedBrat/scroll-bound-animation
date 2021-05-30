@@ -15,9 +15,7 @@ export default class ScrollBound {
    */
   constructor (input:userAnimationInput[]) {
     window.addEventListener("scroll", () => {
-      this.scrollPosition = window.pageYOffset;
-      console.log(this.scrollPosition);
-      
+      this.scrollPosition = window.pageYOffset;      
       input.forEach(element => {
         this.applyAnimation(element);
       });
@@ -28,10 +26,11 @@ export default class ScrollBound {
     offset: number,
     startAnimationValue: number,
     endAnimationValue: number,
-    animationSpeed: number = 1) {
+    animationSpeed: number = 1
+  ) {
     const heightOffset = this.unitWindowHeight * offset;
 
-    if (endAnimationValue > startAnimationValue) {
+    if (endAnimationValue < startAnimationValue) {
       [startAnimationValue, endAnimationValue] = [endAnimationValue, startAnimationValue];
       return (
         endAnimationValue -
