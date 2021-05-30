@@ -52,17 +52,20 @@ export default class ScrollBound {
   }
 
   private getIntegerValueFromString(value: string) {
-    return parseInt(value.split(/([0-9]+)/)[1]);
+    value = value.trim()
+    return value.split(/([0-9]+)/)[0] === '-' ?
+      parseInt(value.split(/([0-9]+)/)[1]) * -1 :
+      parseInt(value.split(/([0-9]+)/)[1]);
   }
   private getIntegerUnitFromString(value: string) {
     return value.split(/([0-9]+)/)[2];
   }
 
   private applyAnimation(element: userAnimationInput) {
-    const elementID = Object.keys(element)[0];
-    const htmlElement = document.getElementById(elementID);
+    const queryString = Object.keys(element)[0];
+    const htmlElement = document.querySelectorAll(queryString) as NodeListOf<HTMLElement>;
 
-    element[elementID].forEach(property => {
+    element[queryString].forEach(property => {
       const propertyName = Object.keys(property)[0];
 
       const propertyValueAtScroll = this.getNormalisedPropertyValueAtScolledPosition(
@@ -70,11 +73,14 @@ export default class ScrollBound {
         this.getIntegerValueFromString(property[propertyName].startAnimationValue),
         this.getIntegerValueFromString(property[propertyName].endAnimationValue),
         property[propertyName].animationSpeed);
-      this.setCSSProperty(
-        htmlElement,
-        propertyName,
-        propertyValueAtScroll,
-        this.getIntegerUnitFromString(property[propertyName].startAnimationValue));
+
+      htmlElement.forEach(targetElement => {
+        this.setCSSProperty(
+          targetElement,
+          propertyName,
+          propertyValueAtScroll,
+          this.getIntegerUnitFromString(property[propertyName].startAnimationValue));
+      })
     }); 
   }
 }
