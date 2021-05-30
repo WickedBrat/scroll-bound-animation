@@ -1,0 +1,32 @@
+{
+  "name": "scroll-bound-animation",
+  "version": "1.0.0",
+  "description": "Change CSS properties of any HTML (SVG too) element and bind it with the scrolled position of the window.",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json",
+    "prepare" : "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WickedBrat/scroll-bound-animation.git"
+  },
+  "keywords": ["scroll", "animation", "scroll-bound"],
+  "author": "WickedBrat",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/WickedBrat/scroll-bound-animation/issues"
+  },
+  "homepage": "https://github.com/WickedBrat/scroll-bound-animation#readme",
+  "devDependencies": {
+    "prettier": "^2.3.0",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^4.3.2"
+  },
+  "files": ["lib/**/*"]
+}
