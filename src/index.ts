@@ -1,8 +1,9 @@
 import {userAnimationInput} from './model';
+import Utils from './utils';
 
 export default class ScrollBound {
   private scrollPosition = 0;
-  private unitWindowHeight = window.innerHeight;
+  private utils = new Utils(window.innerHeight)
 
   /**
    * animateElement
@@ -22,64 +23,28 @@ export default class ScrollBound {
     });
   }
 
-  private getNormalisedPropertyValueAtScolledPosition(
-    offset: number,
-    startAnimationValue: number,
-    endAnimationValue: number,
-    animationSpeed: number = 1
-  ) {
-    const heightOffset = this.unitWindowHeight * offset;
-
-    if (endAnimationValue < startAnimationValue) {
-      [startAnimationValue, endAnimationValue] = [endAnimationValue, startAnimationValue];
-      return (
-        endAnimationValue -
-        Math.min(
-          endAnimationValue,
-          Math.max(
-            startAnimationValue,
-            (this.scrollPosition / heightOffset - 1) * endAnimationValue * animationSpeed))
-      );
-    }
-    return Math.min(
-      endAnimationValue,
-      Math.max(startAnimationValue,
-        (this.scrollPosition / heightOffset - 1) * endAnimationValue * animationSpeed));
-  }
-
-  private setCSSProperty(htmlElement: HTMLElement | null, propertyName: string, value: number, unit: string) {
-      htmlElement?.style.setProperty(propertyName, String(value) + unit);
-  }
-
-  private getIntegerValueFromString(value: string) {
-    value = value.trim()
-    return value.split(/([0-9]+)/)[0] === '-' ?
-      parseInt(value.split(/([0-9]+)/)[1]) * -1 :
-      parseInt(value.split(/([0-9]+)/)[1]);
-  }
-  private getIntegerUnitFromString(value: string) {
-    return value.split(/([0-9]+)/)[2];
-  }
-
   private applyAnimation(element: userAnimationInput) {
     const queryString = Object.keys(element)[0];
     const htmlElement = document.querySelectorAll(queryString) as NodeListOf<HTMLElement>;
 
     element[queryString].forEach(property => {
       const propertyName = Object.keys(property)[0];
+      var propertyNested = propertyName.split(".");
 
-      const propertyValueAtScroll = this.getNormalisedPropertyValueAtScolledPosition(
-        property[propertyName].animationHeightOffset,
-        this.getIntegerValueFromString(property[propertyName].startAnimationValue),
-        this.getIntegerValueFromString(property[propertyName].endAnimationValue),
-        property[propertyName].animationSpeed);
+      const propertyValueAtScroll = this.utils.getNormalisedPropertyValueAtScolledPosition(
+        this.scrollPosition,
+        property[propertyNested[0]].animationHeightOffset,
+        this.utils.getIntegerValueFromString(property[propertyNested[0]].startAnimationValue),
+        this.utils.getIntegerValueFromString(property[propertyNested[0]].endAnimationValue),
+        property[propertyNested[0]].animationSpeed);
 
       htmlElement.forEach(targetElement => {
-        this.setCSSProperty(
+        this.utils.setCSSProperty(
           targetElement,
-          propertyName,
+          propertyNested[0],
           propertyValueAtScroll,
-          this.getIntegerUnitFromString(property[propertyName].startAnimationValue));
+          this.utils.getIntegerUnitFromString(property[propertyNested[0]].startAnimationValue),
+          propertyNested[1]);
       })
     }); 
   }

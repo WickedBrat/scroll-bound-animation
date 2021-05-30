@@ -14,4 +14,5 @@ npm install scroll-bound-animation --save
 
 This list is always under development. We're adding more and more properties as it is requested. You can't find your property listed here? [Raise a PR]()
 
-- Opacity
+- Numerical units like "0", "1", "-200"
+- Distance units like "1rem", "50%", "200px", "-300%"
