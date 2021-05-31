@@ -5,13 +5,13 @@ class Utils {
   }
 
   getIntegerValueFromString(value: string) {
-    var filtered = value.trim().split(/([0-9]+)/)
+    var filtered = value.trim().split(/([0-9|.]+)/)
     return filtered[0] === '-' ?
       parseFloat(filtered[1]) * -1 :
       parseFloat(filtered[1]);
   }
   getIntegerUnitFromString(value: string) {
-    return value.trim().split(/([0-9]+)/)[2];
+    return value.trim().split(/([0-9|.]+)/)[2];
   }
 
   getNormalisedPropertyValueAtScolledPosition(
