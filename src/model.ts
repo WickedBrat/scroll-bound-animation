@@ -6,5 +6,5 @@ export interface propertyAnimation {
 }
 
 export interface userAnimationInput {
-  [key: string]: {[key: string]: propertyAnimation}[]
+  [key: string]: {[key: string]: propertyAnimation}
 }

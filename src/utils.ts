@@ -7,8 +7,8 @@ class Utils {
   getIntegerValueFromString(value: string) {
     var filtered = value.trim().split(/([0-9]+)/)
     return filtered[0] === '-' ?
-      parseInt(filtered[1]) * -1 :
-      parseInt(filtered[1]);
+      parseFloat(filtered[1]) * -1 :
+      parseFloat(filtered[1]);
   }
   getIntegerUnitFromString(value: string) {
     return value.trim().split(/([0-9]+)/)[2];

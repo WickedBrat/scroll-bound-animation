@@ -1,4 +1,4 @@
-import {userAnimationInput} from './model';
+import {userAnimationInput, propertyAnimation} from './model';
 import Utils from './utils';
 
 export default class ScrollBound {
@@ -14,38 +14,39 @@ export default class ScrollBound {
    *  startAnimationValue: number: starting value of the animation.
    *  endAnimationValue: number: end value of the animation.
    */
-  constructor (input:userAnimationInput[]) {
+  constructor (input:userAnimationInput) {
     window.addEventListener("scroll", () => {
       this.scrollPosition = window.pageYOffset;      
-      input.forEach(element => {
-        this.applyAnimation(element);
+      Object.keys(input).forEach((element: string) => {
+        this.applyAnimation(input[element], element);
       });
     });
   }
 
-  private applyAnimation(element: userAnimationInput) {
-    const queryString = Object.keys(element)[0];
-    const htmlElement = document.querySelectorAll(queryString) as NodeListOf<HTMLElement>;
+  private applyAnimation(elementProperties: { [key: string]: propertyAnimation; }, elementQuerySelector: string) {
+    const htmlElements = document.querySelectorAll(elementQuerySelector) as NodeListOf<HTMLElement>;
+    const elementPropertyList = Object.keys(elementProperties);
 
-    element[queryString].forEach(property => {
-      const propertyName = Object.keys(property)[0];
-      var propertyNested = propertyName.split(" ");
+      elementPropertyList.forEach((propertyName: string) => {
 
-      const propertyValueAtScroll = this.utils.getNormalisedPropertyValueAtScolledPosition(
-        this.scrollPosition,
-        property[propertyName].animationHeightOffset,
-        this.utils.getIntegerValueFromString(property[propertyName].startAnimationValue),
-        this.utils.getIntegerValueFromString(property[propertyName].endAnimationValue),
-        property[propertyName].animationSpeed);
+        var propertyNested = propertyName.split(" ");
+        
+        const propertyValueAtScroll = this.utils.getNormalisedPropertyValueAtScolledPosition(
+          this.scrollPosition,
+          elementProperties[propertyName].animationHeightOffset,
+          this.utils.getIntegerValueFromString(elementProperties[propertyName].startAnimationValue),
+          this.utils.getIntegerValueFromString(elementProperties[propertyName].endAnimationValue),
+          elementProperties[propertyName].animationSpeed);
 
-      htmlElement.forEach(targetElement => {
-        this.utils.setCSSProperty(
-          targetElement,
-          propertyNested[0],
-          propertyValueAtScroll,
-          this.utils.getIntegerUnitFromString(property[propertyName].startAnimationValue),
-          propertyNested[1]);
-      })
-    }); 
+          htmlElements.forEach((element: HTMLElement) => {
+
+            this.utils.setCSSProperty(
+              element,
+              propertyNested[0],
+              propertyValueAtScroll,
+              this.utils.getIntegerUnitFromString(elementProperties[propertyName].startAnimationValue),
+              propertyNested[1]);
+          });
+      });
   }
 }
