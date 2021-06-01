@@ -23,7 +23,7 @@ export default class ScrollBound {
     });
   }
 
-  private applyAnimation(elementProperties: { [key: string]: propertyAnimation; }, elementQuerySelector: string) {
+  private applyAnimation(elementProperties: { [key: string]: [propertyAnimation]; }, elementQuerySelector: string) {
     const htmlElements = document.querySelectorAll(elementQuerySelector) as NodeListOf<HTMLElement>;
     const elementPropertyList = Object.keys(elementProperties);
 
@@ -31,22 +31,24 @@ export default class ScrollBound {
 
         var propertyNested = propertyName.split(" ");
         
-        const propertyValueAtScroll = this.utils.getNormalisedPropertyValueAtScolledPosition(
-          this.scrollPosition,
-          elementProperties[propertyName].animationHeightOffset,
-          this.utils.getIntegerValueFromString(elementProperties[propertyName].startAnimationValue),
-          this.utils.getIntegerValueFromString(elementProperties[propertyName].endAnimationValue),
-          elementProperties[propertyName].animationSpeed);
-
-          htmlElements.forEach((element: HTMLElement) => {
-
-            this.utils.setCSSProperty(
-              element,
-              propertyNested[0],
-              propertyValueAtScroll,
-              this.utils.getIntegerUnitFromString(elementProperties[propertyName].startAnimationValue),
-              propertyNested[1]);
-          });
+        elementProperties[propertyName].forEach(heightProperty => {
+          const propertyValueAtScroll = this.utils.getNormalisedPropertyValueAtScolledPosition(
+            this.scrollPosition,
+            heightProperty.animationHeightOffset,
+            this.utils.getIntegerValueFromString(heightProperty.startAnimationValue),
+            this.utils.getIntegerValueFromString(heightProperty.endAnimationValue),
+            heightProperty.animationSpeed);
+  
+            htmlElements.forEach((element: HTMLElement) => {
+  
+              this.utils.setCSSProperty(
+                element,
+                propertyNested[0],
+                propertyValueAtScroll,
+                this.utils.getIntegerUnitFromString(heightProperty.startAnimationValue),
+                propertyNested[1]);
+            });
+        })
       });
   }
 }
