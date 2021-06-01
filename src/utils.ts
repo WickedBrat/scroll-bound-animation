@@ -22,22 +22,21 @@ class Utils {
     animationSpeed: number = 1
   ) {
     const heightOffset = this.unitWindowHeight * offset;
-
+    let start = Math.abs(startAnimationValue)
+    let end = Math.abs(endAnimationValue)
+    if (end < start) 
+      [start, end] = [end, start];
+    let scrollValue = Math.min(
+      end,
+      Math.max(start,
+        (scrollPosition / heightOffset - 1) * end * animationSpeed));
+    
     if (endAnimationValue < startAnimationValue) {
-      [startAnimationValue, endAnimationValue] = [endAnimationValue, startAnimationValue];
-      return (
-        endAnimationValue -
-        Math.min(
-          endAnimationValue,
-          Math.max(
-            startAnimationValue,
-            (scrollPosition / heightOffset - 1) * endAnimationValue * animationSpeed))
-      );
+      if (endAnimationValue < 0) 
+        return scrollValue * -1;
+      return end - scrollValue
     }
-    return Math.min(
-      endAnimationValue,
-      Math.max(startAnimationValue,
-        (scrollPosition / heightOffset - 1) * endAnimationValue * animationSpeed));
+    return scrollValue;
   }
 
 

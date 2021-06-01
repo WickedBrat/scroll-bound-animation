@@ -60,10 +60,10 @@ What does these mean?
 ```
 
 Although this is the most complex supported query I could think of,🤕 I encourage you guys to be creative 😛
-
+<!-- 
 ### Example sites:
 
-- [WickedBrat.com](https://wickedbrat.com/?npm)
+- [WickedBrat.com](https://wickedbrat.com/?npm) -->
 
 ## Supported CSS Properties
 
