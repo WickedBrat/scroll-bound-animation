@@ -1,5 +1,6 @@
 import {userAnimationInput, propertyAnimation} from './model';
 import Utils from './utils';
+import * as lodash from 'lodash';
 
 export default class ScrollBound {
   private scrollPosition = 0;
@@ -15,12 +16,12 @@ export default class ScrollBound {
    *  endAnimationValue: number: end value of the animation.
    */
   constructor (input:userAnimationInput) {
-    window.addEventListener("scroll", () => {
+    window.addEventListener("scroll", lodash.throttle(() => {
       this.scrollPosition = window.pageYOffset;      
       Object.keys(input).forEach((element: string) => {
         this.applyAnimation(input[element], element);
       });
-    });
+    }, 200));
   }
 
   private applyAnimation(elementProperties: { [key: string]: [propertyAnimation]; }, elementQuerySelector: string) {

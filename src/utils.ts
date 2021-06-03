@@ -22,10 +22,14 @@ class Utils {
     animationSpeed: number = 1
   ) {
     const heightOffset = this.unitWindowHeight * offset;
-    let start = Math.abs(startAnimationValue)
-    let end = Math.abs(endAnimationValue)
-    if (end < start) 
-      [start, end] = [end, start];
+    
+    let start = startAnimationValue;
+    let end = endAnimationValue;
+    if (end < start)
+      if (Math.abs(end) < Math.abs(start))
+        [start, end] = [Math.abs(end), Math.abs(start)];
+      else
+        [start, end] = [Math.abs(start), Math.abs(end)]
     let scrollValue = Math.min(
       end,
       Math.max(start,
