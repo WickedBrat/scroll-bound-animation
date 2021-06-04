@@ -21,7 +21,7 @@ export default class ScrollBound {
       Object.keys(input).forEach((element: string) => {
         this.applyAnimation(input[element], element);
       });
-    }, 200));
+    }, 50));
   }
 
   private applyAnimation(elementProperties: { [key: string]: [propertyAnimation]; }, elementQuerySelector: string) {
