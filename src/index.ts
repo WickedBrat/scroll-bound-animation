@@ -16,12 +16,12 @@ export default class ScrollBound {
    *  endAnimationValue: number: end value of the animation.
    */
   constructor (input:userAnimationInput) {
-    window.addEventListener("scroll", lodash.throttle(() => {
+    window.addEventListener("scroll", (() => {
       this.scrollPosition = window.pageYOffset;      
       Object.keys(input).forEach((element: string) => {
         this.applyAnimation(input[element], element);
       });
-    }, 50));
+    }));
   }
 
   private applyAnimation(elementProperties: { [key: string]: [propertyAnimation]; }, elementQuerySelector: string) {
@@ -33,11 +33,17 @@ export default class ScrollBound {
         var propertyNested = propertyName.split(" ");
         
         elementProperties[propertyName].forEach(heightProperty => {
+          const startValue = this.utils.getIntegerValueFromString(heightProperty.startAnimationValue);
+          const endValue = this.utils.getIntegerValueFromString(heightProperty.endAnimationValue);
+          if (!(
+            this.scrollPosition >= window.innerHeight * heightProperty.animationHeightOffset)) {
+            return;
+          }
           const propertyValueAtScroll = this.utils.getNormalisedPropertyValueAtScolledPosition(
             this.scrollPosition,
             heightProperty.animationHeightOffset,
-            this.utils.getIntegerValueFromString(heightProperty.startAnimationValue),
-            this.utils.getIntegerValueFromString(heightProperty.endAnimationValue),
+            startValue,
+            endValue,
             heightProperty.animationSpeed);
   
             htmlElements.forEach((element: HTMLElement) => {
