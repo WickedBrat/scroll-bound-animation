@@ -2,13 +2,18 @@
 
 Change CSS properties of any HTML (SVG too) element and bind it with the scrolled position of the window. 🥳🤩
 
-This library is fairly new 🐣 so I encourge people to [Report an issue]() in case you find something that doesn't work for you. We'll fix it instantly ⚡️⚡️
+This library is fairly new 🐣 so I encourge people to [Report an issue](https://github.com/WickedBrat/scroll-bound-animation/issues/new) in case you find something that doesn't work for you. We'll fix it instantly ⚡️⚡️
 
 ## Installation
 
 ```shell
 npm install scroll-bound-animation --save
 ```
+
+## Example
+
+- [WickedBrat.com](https://wickedbrat.com/?npm)
+  - [corresponding animation.json file](https://github.com/WickedBrat/personal-website/blob/main/pages/animation.json)
 
 ## Usage
 

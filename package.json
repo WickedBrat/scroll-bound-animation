@@ -21,9 +21,18 @@
     "scroll-bound",
     "angular",
     "react",
-    "js"
+    "js",
+    "scroll position",
+    "scroll bound animation",
+    "scroll-bound-animation",
+    "css",
+    "scrolling"
   ],
-  "author": "WickedBrat",
+  "author": {
+    "name": "Siddhant Srivastav",
+    "email": "harshsrivastav123@gmail.com",
+    "url": "https://wickedbrat.com/"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/WickedBrat/scroll-bound-animation/issues"
