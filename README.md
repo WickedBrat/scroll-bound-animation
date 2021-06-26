@@ -1,5 +1,7 @@
 # Scroll Bound Animation
 
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/wickedbrat)
+
 Change CSS properties of any HTML (SVG too) element and bind it with the scrolled position of the window. 🥳🤩
 
 This library is fairly new 🐣 so I encourge people to [Report an issue](https://github.com/WickedBrat/scroll-bound-animation/issues/new) in case you find something that doesn't work for you. We'll fix it instantly ⚡️⚡️
